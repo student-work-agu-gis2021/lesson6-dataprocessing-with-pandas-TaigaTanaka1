@@ -17,6 +17,15 @@ import numpy as np
 data = None
 
 # YOUR CODE HERE 1
+fp = r'data/1091402.txt'
+data = pd.read_csv(
+  fp,
+  skiprows = [1], #２行目スキップ
+  delim_whitespace=True,
+  na_values = [-9999]
+)
+
+
 
 # ### Part 2 
 # 
@@ -27,6 +36,8 @@ data = None
 
 tavg_nodata_count = None
 #YOUR CODE HERE 2
+#.isnull()でNaNかどうか判定して、それの合計を取る
+tavg_nodata_count = data['TAVG'].isnull().sum()
 
 
 #CAUTION!!! DON'T EDIT THIS PART START
@@ -40,6 +51,9 @@ print('Number of no-data values in column "TAVG":',tavg_nodata_count)
 
 tmin_nodata_count = None
 #YOUR CODE HERE 3
+
+#.isnull()でNaNかどうか判定して、それの合計を取る
+tmin_nodata_count = data['TMIN'].isnull().sum()
 
 #CAUTION!!! DON'T EDIT THIS PART START
 # Print out the solution:
