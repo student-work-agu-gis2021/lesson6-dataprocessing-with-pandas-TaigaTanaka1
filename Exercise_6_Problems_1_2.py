@@ -66,6 +66,10 @@ print('Number of no-data values in column "TMIN":', tmin_nodata_count)
 
 day_count = None 
 #YOUR CODE HERE 4
+#'DATE'の列の長さ
+day_count = len(data['DATE'])
+
+
 
 #CAUTION!!! DON'T EDIT THIS PART START
 # Print out the solution:
@@ -79,6 +83,9 @@ print("Number of days:", day_count)
 first_obs = None
  
 # YOUR CODE HERE 5
+#一つ目のデータを見れば良い
+first_obs = data.loc[0, 'DATE']
+
 
 #CAUTION!!! DON'T EDIT THIS PART START
 # Print out the solution:
@@ -91,6 +98,8 @@ print('Date of the first observation:',first_obs)
 last_obs = None
 
 # YOUR CODE HERE 6
+last_obs = data.loc[day_count-1, 'DATE']
+
 
 #CAUTION!!! DON'T EDIT THIS PART START
 # Print out the solution:
@@ -104,6 +113,8 @@ print('Date of the last observation:', last_obs)
 avg_temp = None
 
 # YOUR CODE HERE 7
+avg_temp = data['TAVG'].mean()
+
 
 #CAUTION!!! DON'T EDIT THIS PART START
 # Print out the solution:
