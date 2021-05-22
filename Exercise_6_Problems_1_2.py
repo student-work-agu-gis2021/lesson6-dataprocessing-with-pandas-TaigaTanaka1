@@ -116,6 +116,8 @@ avg_temp = None
 avg_temp = data['TAVG'].mean()
 
 
+
+
 #CAUTION!!! DON'T EDIT THIS PART START
 # Print out the solution:
 print('Average temperature (F) for the whole dataset:', round(avg_temp, 2))
@@ -128,6 +130,9 @@ print('Average temperature (F) for the whole dataset:', round(avg_temp, 2))
 avg_temp_1969 = None
 
 # YOUR CODE HERE 8
+#'DATE'が19690501以上19690901未満の範囲を指定して、平均を取る
+avg_temp_1969 = data['TMAX'].loc[(data['DATE'] >= 19690501) & (data['DATE'] < 19690901)].mean()
+
 
 #CAUTION!!! DON'T EDIT THIS PART START
 # This test print should print a number
@@ -141,6 +146,57 @@ print('Average temperature (F) for the Summer of 69:', round(avg_temp_1969, 2))
 monthly_data = None
 
 # YOUR CODE HERE 9
+"""
+monthly = pd.DataFrame(
+  columns = [
+    "January",
+    "February",
+    "March", 
+    "April", 
+    "May", 
+    "June", 
+    "July", 
+    "August", 
+    "September", 
+    "October", 
+    "November", 
+    "December"
+    ]
+  )
+"""
+#華氏を摂氏に変える関数を作る。
+def fahr_to_celsius(temp_fahrenheit):
+  converted_temp = (temp_fahrenheit - 32) / 1.8
+  return converted_temp
+
+
+#DataFrameを用意する
+monthly_data = pd.DataFrame()
+
+#dataを加工していく string型にしてsliceで月だけ取得
+data['TIME_STR'] = data['DATE'].astype(str)
+data['MONTH'] = data['TIME_STR'].str.slice(start=4, stop=6)
+data['TAVG'] = data['TAVG'].apply(fahr_to_celsius)
+#'MONTH'の値ごとにグループ化
+grouped = data.groupby('MONTH')
+
+#'TAVG'の平均値を取る。
+mean_col = ['TAVG']
+for key, group in grouped:
+  #平均を計算して、monthly_dataに追加していく。
+  mean_values = group[mean_col].mean()
+  monthly_data = monthly_data.append(mean_values, ignore_index = True)
+
+#column の名前を正しくする
+new_name = {'TAVG':'temp_celsius'}
+monthly_data = monthly_data.rename(columns = new_name)
+
+
+
+
+#monthly_data = monthly_data.apply(fahr_to_celsius)
+print(monthly_data)
+
 
 #CAUTION!!! DON'T EDIT THIS PART START
 # This test print should print the length of variable monthly_data
