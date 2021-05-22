@@ -27,8 +27,6 @@ data = pd.read_csv(
   na_values = [-9999] #-9999 into NaN
 )
 
-
-
 # ### Part 2 
 # 
 # In this section, you will calculate simple statistics based on the input data:
@@ -157,6 +155,7 @@ monthly_data = pd.DataFrame()
 data['TIME_STR'] = data['DATE'].astype(str)
 data['YEAR'] = data['TIME_STR'].str.slice(start=0, stop=4)
 data['MONTH'] = data['TIME_STR'].str.slice(start=4, stop=6)
+
 #'grouped' is grouped data by YEAR and MONTH
 grouped = data.groupby(['YEAR','MONTH'])
 
